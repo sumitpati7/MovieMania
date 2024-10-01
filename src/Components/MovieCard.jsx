@@ -27,7 +27,7 @@ const MovieCard = ({ movie }) => {
           {" "}
           <span
             id={movie.id}
-            className="play absolute w-[250px] md:w-[300px] h-[450px] block z-[5] cursor-pointer hidden left-0 top-0 overflow-y-auto"
+            className="play absolute w-[250px] p-4 md:w-[300px] h-[450px] block z-[5] cursor-pointer hidden left-0 top-0 overflow-y-auto"
           >
             <span className="text-sm text-white">
               Description: {movie.overview} <br />
