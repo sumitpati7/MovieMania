@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/MovieMania/static/css/main.0a3ee4cb.css",
+    "main.js": "/MovieMania/static/js/main.5436a8d1.js",
+    "static/js/453.2abc1c4d.chunk.js": "/MovieMania/static/js/453.2abc1c4d.chunk.js",
+    "static/media/movie1.jpg": "/MovieMania/static/media/movie1.9a7de7f3f41d98708d53.jpg",
+    "index.html": "/MovieMania/index.html",
+    "main.0a3ee4cb.css.map": "/MovieMania/static/css/main.0a3ee4cb.css.map",
+    "main.5436a8d1.js.map": "/MovieMania/static/js/main.5436a8d1.js.map",
+    "453.2abc1c4d.chunk.js.map": "/MovieMania/static/js/453.2abc1c4d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0a3ee4cb.css",
+    "static/js/main.5436a8d1.js"
+  ]
+}
