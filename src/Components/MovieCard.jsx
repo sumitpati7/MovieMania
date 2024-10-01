@@ -3,8 +3,15 @@ import movie1 from "../assets/img/movie1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faPlay } from "@fortawesome/free-solid-svg-icons";
 import StarRating from "./StarRating";
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
+  const navigate = useNavigate();
+
+  const navigateToDetails = () => {
+    navigate(`details/${movie.id}`);
+  };
+
   const changeDisplayShow = () => {
     const play = document.getElementById(movie.id);
     play.style.display = "inline";
@@ -22,6 +29,7 @@ const MovieCard = ({ movie }) => {
         <div
           onMouseEnter={changeDisplayShow}
           onMouseLeave={changeDisplayHidden}
+          onClick={navigateToDetails}
           className="movie-image float-left w-[250px] md:w-[300px] h-[450px] relative"
         >
           {" "}

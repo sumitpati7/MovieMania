@@ -1,6 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 // require("dotenv").config();
+const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+  },
+};
 
 const MovieList = () => {
   const filter_type = [
@@ -24,13 +30,6 @@ const MovieList = () => {
   const [movie_list, setMovieList] = useState([]);
   const [filter, setFilter] = useState("now_playing");
 
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-    },
-  };
-
   useEffect(() => {
     fetch(
       "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&api_key=" +
@@ -40,7 +39,7 @@ const MovieList = () => {
       .then((response) => response.json())
       .then((response) => setMovieList(response.results))
       .catch((err) => console.error(err));
-  }, []);
+  }, [options]);
 
   const fetchData = useCallback(
     (filter) => {
@@ -56,7 +55,7 @@ const MovieList = () => {
         .then((response) => setMovieList(response.results))
         .catch((err) => console.error(err));
     },
-    [movie_list]
+    [movie_list, options]
   );
 
   return (
