@@ -39,24 +39,21 @@ const MovieList = () => {
       .then((response) => response.json())
       .then((response) => setMovieList(response.results))
       .catch((err) => console.error(err));
-  }, [options]);
+  }, []);
 
-  const fetchData = useCallback(
-    (filter) => {
-      setFilter(filter);
-      fetch(
-        "https://api.themoviedb.org/3/movie/" +
-          filter +
-          "?language=en-US&page=1&api_key=" +
-          process.env.REACT_APP_API_KEY,
-        options
-      )
-        .then((response) => response.json())
-        .then((response) => setMovieList(response.results))
-        .catch((err) => console.error(err));
-    },
-    [movie_list, options]
-  );
+  const fetchData = useCallback((filter) => {
+    setFilter(filter);
+    fetch(
+      "https://api.themoviedb.org/3/movie/" +
+        filter +
+        "?language=en-US&page=1&api_key=" +
+        process.env.REACT_APP_API_KEY,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => setMovieList(response.results))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <div className="w-full py-8">
@@ -76,7 +73,7 @@ const MovieList = () => {
           ))}
         </select>
       </div>
-      <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {movie_list.map((value, index) => (
           <MovieCard className="mx-auto" key={index} movie={value} />
         ))}
