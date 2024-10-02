@@ -8,6 +8,7 @@ import {
   setMovieDetail,
   setReviews,
 } from "../redux/movieDetailSlice";
+import CommentForm from "./CommentForm";
 const options = {
   method: "GET",
   headers: {
@@ -50,7 +51,6 @@ const MovieDetail = () => {
   }, [movieId, dispatch]);
 
   const postReview = useCallback(async () => {
-    // async function reviewPost() {
     let value = document.getElementById("rating-select").value;
     try {
       const response = await fetch(
@@ -60,8 +60,7 @@ const MovieDetail = () => {
           headers: {
             accept: "application/json",
             "Content-Type": "application/json;charset=utf-8",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjIwNzA1OGNkNDE1ZDUxYzM1MjIyMGZmNzcyZTgzNiIsIm5iZiI6MTcyNzg1NjM1Ni43MjM3Nywic3ViIjoiNjZmYTdmMWM5YzY4NmE0NjAyMTMyYjgzIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.lnymXLIFqYJSIT32mAySdMeREc2shIp0giobIG0daMs",
+            Authorization: `Bearer ${process.env.REACT_APP_API_ACCESS_TOKEN}`,
           },
           body: JSON.stringify({ value: value }),
         }
@@ -69,8 +68,6 @@ const MovieDetail = () => {
       const message = await response.json();
       console.log(message);
     } catch (e) {}
-    // }
-    // reviewPost();
   }, [movieId]);
   return (
     <div className="w-full">
@@ -213,6 +210,12 @@ const MovieDetail = () => {
               <Comment key={index} comment={value} />
             ))}
           </div>
+          <div className="py-8">
+            <div className="rev text-xl font-bold text-[#e36414] w-fit border-b-2 mb-4 md:mb-0 border-blue-700 md:text-xl">
+              Add Your Comment...
+            </div>
+            <CommentForm />
+          </div>
         </div>
         <div className="rating w-[80%] py-8 mx-auto">
           <div className="rev text-4xl font-bold text-[#e36414] w-fit border-b-4 mb-4 md:mb-0 border-blue-700 md:text-6xl">
@@ -226,9 +229,6 @@ const MovieDetail = () => {
                 name="rating"
                 id="rating-select"
               >
-                <option selected disabled value="null">
-                  --Select--
-                </option>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value, index) => (
                   <option value={value} key={index}>
                     {value}
