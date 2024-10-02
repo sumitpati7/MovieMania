@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
-// require("dotenv").config();
 const options = {
   method: "GET",
   headers: {

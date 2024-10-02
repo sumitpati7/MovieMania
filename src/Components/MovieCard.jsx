@@ -1,7 +1,6 @@
 import React from "react";
-import movie1 from "../assets/img/movie1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 import StarRating from "./StarRating";
 import { useNavigate } from "react-router-dom";
 
@@ -44,7 +43,7 @@ const MovieCard = ({ movie }) => {
           </span>{" "}
           <a
             className="float-left inline w-[250px] md:w-[300px] h-[450px] relative z-[2]"
-            href="#"
+            href="/"
           >
             <img
               className="w-[250px] md:w-[300px] h-[450px]"
