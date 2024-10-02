@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Homepage from "./Components/Homepage";
 import MovieDetail from "./Components/MovieDetail";
 import Navbar from "./Components/navbar";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const routes = createBrowserRouter([
   {
@@ -28,8 +30,10 @@ const routes = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Navbar />
-    <RouterProvider router={routes} />
+    <Provider store={store}>
+      <Navbar />
+      <RouterProvider router={routes} />
+    </Provider>
   </React.StrictMode>
 );
 

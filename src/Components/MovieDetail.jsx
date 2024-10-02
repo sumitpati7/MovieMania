@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getMovieDetail,
+  getReviews,
+  setMovieDetail,
+  setReviews,
+} from "../redux/movieDetailSlice";
 const options = {
   method: "GET",
   headers: {
@@ -10,9 +17,12 @@ const options = {
 
 const MovieDetail = () => {
   const { movieId } = useParams();
-  const [movie_detail, setMovieDetail] = useState({});
-  const [review_comments, setReviewComments] = useState([]);
+  // const [movie_detail, setMovieDetail] = useState({});
+  // const [review_comments, setReviewComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const movie_detail = useSelector(getMovieDetail);
+  const review_comments = useSelector(getReviews);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,11 +33,11 @@ const MovieDetail = () => {
           options
         );
         const movieData = await response.json();
-        setMovieDetail(movieData);
+        dispatch(setMovieDetail(movieData));
       } catch (e) {}
     }
     fetchData();
-  }, [movieId]);
+  }, [movieId, dispatch]);
 
   useEffect(() => {
     fetch(
@@ -36,9 +46,9 @@ const MovieDetail = () => {
       options
     )
       .then((response) => response.json())
-      .then((response) => setReviewComments(response.results))
+      .then((response) => dispatch(setReviews(response.results)))
       .catch((err) => console.error(err));
-  }, [movieId]);
+  }, [movieId, dispatch]);
 
   const postReview = async () => {
     setIsLoading(true);
@@ -94,7 +104,7 @@ const MovieDetail = () => {
             <img
               className="mx-auto w-4/5 h-4/5 md:h-full md:w-full max-h-[400px] max-w-[265px] md:mx-0"
               src={`https://image.tmdb.org/t/p/w200${movie_detail.poster_path}`}
-              alt=""
+              alt={movie_detail.title}
             />
             <div className="description pl-16 hidden md:inline">
               <a

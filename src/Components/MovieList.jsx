@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies, selectMovies } from "../redux/movieSlice";
 const options = {
   method: "GET",
   headers: {
@@ -26,8 +28,10 @@ const MovieList = () => {
       url_snip: "upcoming",
     },
   ];
-  const [movie_list, setMovieList] = useState([]);
+
   const [filter, setFilter] = useState("now_playing");
+  const dispatch = useDispatch();
+  const movies = useSelector(selectMovies);
 
   useEffect(() => {
     fetch(
@@ -36,7 +40,7 @@ const MovieList = () => {
       options
     )
       .then((response) => response.json())
-      .then((response) => setMovieList(response.results))
+      .then((response) => dispatch(fetchMovies(response.results)))
       .catch((err) => console.error(err));
   }, []);
 
@@ -50,7 +54,7 @@ const MovieList = () => {
       options
     )
       .then((response) => response.json())
-      .then((response) => setMovieList(response.results))
+      .then((response) => dispatch(fetchMovies(response.results)))
       .catch((err) => console.error(err));
   }, []);
 
@@ -73,7 +77,7 @@ const MovieList = () => {
         </select>
       </div>
       <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-        {movie_list.map((value, index) => (
+        {movies.map((value, index) => (
           <MovieCard className="mx-auto" key={index} movie={value} />
         ))}
       </div>
