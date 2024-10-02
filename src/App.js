@@ -1,10 +1,25 @@
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Navbar from "./Components/navbar";
+import Homepage from "./Components/Homepage";
+import MovieDetail from "./Components/MovieDetail";
+
+const routes = createBrowserRouter([
+  {
+    path: "/",
+    element: <Homepage />,
+  },
+  {
+    path: "details/:movieId",
+    element: <MovieDetail />,
+  },
+]);
 
 function App() {
   return (
     <>
-      <Outlet />
+      <Navbar />
+      <RouterProvider router={routes} />
     </>
   );
 }
