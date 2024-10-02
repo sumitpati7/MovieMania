@@ -12,6 +12,7 @@ const MovieDetail = () => {
   const { movieId } = useParams();
   const [movie_detail, setMovieDetail] = useState({});
   const [review_comments, setReviewComments] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -38,6 +39,47 @@ const MovieDetail = () => {
       .then((response) => setReviewComments(response.results))
       .catch((err) => console.error(err));
   }, [movieId]);
+
+  const postReview = async () => {
+    setIsLoading(true);
+    try {
+      console.log(isLoading);
+
+      const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}`,
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            accept: "application/json",
+            RAW_BODY: JSON.stringify({ rating: 4 }),
+          },
+        }
+      );
+      const message = await response.json();
+      console.log(message);
+    } catch (e) {}
+  };
+
+  // useEffect(async function postReview() {
+  //   let value = document.getElementById("rating-select").target.value;
+  //   console.log(value);
+
+  //   const post = await fetch(
+  //     `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}`,
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         accept: "application/json",
+  //         "Content-Type": "application/json;charset=utf-8",
+  //         api_key: process.env.REACT_APP_API_KEY,
+  //       },
+  //       body: JSON.stringify({ value: 4 }),
+  //     }
+  //   );
+  //   const response = await response.json();
+  //   console.log(response);
+  // });
 
   return (
     <div className="w-full">
@@ -123,14 +165,16 @@ const MovieDetail = () => {
               {movie_detail.overview}
             </p>
             <table className="w-1/2 text-black text-left mt-4">
-              <tr>
-                <th>Vote Count</th>
-                <td>{movie_detail.vote_count}</td>
-              </tr>
-              <tr className="mt-4">
-                <th>Vote Rating</th>
-                <td>{movie_detail.vote_average}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th>Vote Count</th>
+                  <td>{movie_detail.vote_count}</td>
+                </tr>
+                <tr className="mt-4">
+                  <th>Vote Rating</th>
+                  <td>{movie_detail.vote_average}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           <div className="py-8 border-b-2 border-dotted border-black">
@@ -169,14 +213,44 @@ const MovieDetail = () => {
             </table>
           </div>
         </div>
-        <div className="reviews w-[80%] mx-auto">
-          <div className="rev text-4xl font-bold text-[#e36414]  w-fit border-b-4 mb-4 md:mb-0 border-blue-700 md:text-6xl">
+        <div className="reviews w-[80%] py-8 mx-auto">
+          <div className="rev text-4xl font-bold text-[#e36414] w-fit border-b-4 mb-4 md:mb-0 border-blue-700 md:text-6xl">
             Reviews
           </div>
           <div>
             {review_comments.map((value, index) => (
               <Comment key={index} comment={value} />
             ))}
+          </div>
+        </div>
+        <div className="rating w-[80%] py-8 mx-auto">
+          <div className="rev text-4xl font-bold text-[#e36414] w-fit border-b-4 mb-4 md:mb-0 border-blue-700 md:text-6xl">
+            Rating
+          </div>
+          <div className="rate-box w-full">
+            <div className="text-xl">Would you like to rate this movie?</div>
+            <div className="rating-select w-full flex justify-center">
+              <select
+                className=" border-[#88C0D0] border-solid border"
+                name="rating"
+                id="rating-select"
+              >
+                <option disabled value={null}>
+                  --Select--
+                </option>
+                {[1, 2, 3, 4, 5].map((value, index) => (
+                  <option value={value} key={index}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+              <button
+                onClick={postReview}
+                className="ml-4 border-[#88C0D0] border-solid border px-4 rounded-sm"
+              >
+                Rate!
+              </button>
+            </div>
           </div>
         </div>
       </div>
