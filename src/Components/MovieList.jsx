@@ -42,21 +42,24 @@ const MovieList = () => {
       .then((response) => response.json())
       .then((response) => dispatch(fetchMovies(response.results)))
       .catch((err) => console.error(err));
-  }, []);
+  }, [dispatch]);
 
-  const fetchData = useCallback((filter) => {
-    setFilter(filter);
-    fetch(
-      "https://api.themoviedb.org/3/movie/" +
-        filter +
-        "?language=en-US&page=1&api_key=" +
-        process.env.REACT_APP_API_KEY,
-      options
-    )
-      .then((response) => response.json())
-      .then((response) => dispatch(fetchMovies(response.results)))
-      .catch((err) => console.error(err));
-  }, []);
+  const fetchData = useCallback(
+    (filter) => {
+      setFilter(filter);
+      fetch(
+        "https://api.themoviedb.org/3/movie/" +
+          filter +
+          "?language=en-US&page=1&api_key=" +
+          process.env.REACT_APP_API_KEY,
+        options
+      )
+        .then((response) => response.json())
+        .then((response) => dispatch(fetchMovies(response.results)))
+        .catch((err) => console.error(err));
+    },
+    [dispatch]
+  );
 
   return (
     <div className="w-full py-8">

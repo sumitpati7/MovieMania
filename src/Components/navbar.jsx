@@ -19,7 +19,7 @@ const Navbar = () => {
   };
   return (
     <header className="h-20 w-full">
-      <nav className="h-20 w-[90%] mx-auto z-10 flex items-center justify-between">
+      <nav className="h-20 w-[90%] mx-auto z-[10] flex items-center justify-between">
         <a
           className="logo font-[Poppins] text-blue-700 font-extrabold tracking-wider text-4xl"
           href="/"
@@ -27,10 +27,10 @@ const Navbar = () => {
           Movie<span className="text-[#e36414]">Mania</span>
         </a>
         <div
-          className="nav-links z-0 duration-500 absolute md:static md:min-h-fit min-h-fit left-[-100%] top-[9%] w-full md:w-fit flex items-center"
+          className="nav-links z-[10] duration-500 absolute h-[calc(100vh_-_80px)] md:h-fit bg-white md:static md:min-h-fit min-h-fit left-[-100%] top-[9%] w-full md:w-fit flex items-center"
           style={{ left: icon === faClose ? 0 + "%" : "" }}
         >
-          <ul className="flex bg-white w-full md:w-fit md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
+          <ul className="flex z-20 bg-white w-full md:w-fit md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
             {links.map((value, index) => (
               <li key={index} className="text-center">
                 <a

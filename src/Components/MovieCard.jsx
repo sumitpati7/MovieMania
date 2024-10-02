@@ -34,23 +34,18 @@ const MovieCard = ({ movie }) => {
           {" "}
           <span
             id={movie.id}
-            className="play absolute w-[250px] p-4 md:w-[300px] h-[450px] block z-[5] cursor-pointer hidden left-0 top-0 overflow-y-auto"
+            className="play absolute w-[250px] p-4 md:w-[300px] h-[450px] block z-[2] cursor-pointer hidden left-0 top-0 overflow-y-auto"
           >
             <span className="text-sm text-white">
               Description: {movie.overview} <br />
               Release Date: {movie.release_date}
             </span>
           </span>{" "}
-          <a
-            className="float-left inline w-[250px] md:w-[300px] h-[450px] relative z-[2]"
-            href="/"
-          >
-            <img
-              className="w-[250px] md:w-[300px] h-[450px]"
-              src={"https://image.tmdb.org/t/p/w200" + movie.poster_path}
-              alt=""
-            />
-          </a>{" "}
+          <img
+            className="w-[250px] md:w-[300px] h-[450px]"
+            src={"https://image.tmdb.org/t/p/w200" + movie.poster_path}
+            alt=""
+          />{" "}
         </div>
         <div className="rating float-left w-full text-[12px]">
           <div className="w-full pt-2 text-sm font-semibold font-[poppins]">

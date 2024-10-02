@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,6 @@ const MovieDetail = () => {
   const { movieId } = useParams();
   // const [movie_detail, setMovieDetail] = useState({});
   // const [review_comments, setReviewComments] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const movie_detail = useSelector(getMovieDetail);
   const review_comments = useSelector(getReviews);
@@ -50,47 +49,29 @@ const MovieDetail = () => {
       .catch((err) => console.error(err));
   }, [movieId, dispatch]);
 
-  const postReview = async () => {
-    setIsLoading(true);
+  const postReview = useCallback(async () => {
+    // async function reviewPost() {
+    let value = document.getElementById("rating-select").value;
     try {
-      console.log(isLoading);
-
       const response = await fetch(
         `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}`,
         {
           method: "POST",
-          mode: "no-cors",
           headers: {
             accept: "application/json",
-            RAW_BODY: JSON.stringify({ rating: 4 }),
+            "Content-Type": "application/json;charset=utf-8",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjIwNzA1OGNkNDE1ZDUxYzM1MjIyMGZmNzcyZTgzNiIsIm5iZiI6MTcyNzg1NjM1Ni43MjM3Nywic3ViIjoiNjZmYTdmMWM5YzY4NmE0NjAyMTMyYjgzIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.lnymXLIFqYJSIT32mAySdMeREc2shIp0giobIG0daMs",
           },
+          body: JSON.stringify({ value: value }),
         }
       );
       const message = await response.json();
       console.log(message);
     } catch (e) {}
-  };
-
-  // useEffect(async function postReview() {
-  //   let value = document.getElementById("rating-select").target.value;
-  //   console.log(value);
-
-  //   const post = await fetch(
-  //     `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}`,
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         accept: "application/json",
-  //         "Content-Type": "application/json;charset=utf-8",
-  //         api_key: process.env.REACT_APP_API_KEY,
-  //       },
-  //       body: JSON.stringify({ value: 4 }),
-  //     }
-  //   );
-  //   const response = await response.json();
-  //   console.log(response);
-  // });
-
+    // }
+    // reviewPost();
+  }, [movieId]);
   return (
     <div className="w-full">
       <div className="w-[90%] mx-auto">
@@ -245,17 +226,17 @@ const MovieDetail = () => {
                 name="rating"
                 id="rating-select"
               >
-                <option disabled value={null}>
+                <option selected disabled value="null">
                   --Select--
                 </option>
-                {[1, 2, 3, 4, 5].map((value, index) => (
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value, index) => (
                   <option value={value} key={index}>
                     {value}
                   </option>
                 ))}
               </select>
               <button
-                onClick={postReview}
+                onClick={() => postReview()}
                 className="ml-4 border-[#88C0D0] border-solid border px-4 rounded-sm"
               >
                 Rate!
