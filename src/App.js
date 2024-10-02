@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/navbar";
 import Homepage from "./Components/Homepage";
 import MovieDetail from "./Components/MovieDetail";
@@ -7,8 +7,8 @@ import MovieDetail from "./Components/MovieDetail";
 function App() {
   return (
     <>
-      <Navbar />
       <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="details/:movieId" element={<MovieDetail />} />
