@@ -10,8 +10,8 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="details/:movieId" element={<MovieDetail />} />
+          <Route path="MovieMania" element={<Homepage />} />
+          <Route path="MovieMania/details/:movieId" element={<MovieDetail />} />
         </Routes>
       </Router>
     </>
