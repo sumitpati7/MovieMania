@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies, selectMovies } from "../redux/movieSlice";
+import { fetchMovies, addMovies, selectMovies } from "../redux/movieSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 const options = {
   method: "GET",
   headers: {
@@ -10,6 +12,7 @@ const options = {
 };
 
 const MovieList = () => {
+  const [page, setPage] = useState(1);
   const filter_type = [
     {
       title: "Now Playing",
@@ -35,14 +38,19 @@ const MovieList = () => {
 
   useEffect(() => {
     fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&api_key=" +
+      "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=" +
+        page +
+        "&api_key=" +
         process.env.REACT_APP_API_KEY,
       options
     )
       .then((response) => response.json())
-      .then((response) => dispatch(fetchMovies(response.results)))
+      .then((response) => {
+        dispatch(fetchMovies(response.results));
+      })
       .catch((err) => console.error(err));
-  }, [dispatch]);
+    setPage(parseInt(page) + 1);
+  }, [dispatch, setPage]);
 
   const fetchData = useCallback(
     (filter) => {
@@ -50,16 +58,40 @@ const MovieList = () => {
       fetch(
         "https://api.themoviedb.org/3/movie/" +
           filter +
-          "?language=en-US&page=1&api_key=" +
+          "?language=en-US&page=" +
+          1 +
+          "&api_key=" +
           process.env.REACT_APP_API_KEY,
         options
       )
         .then((response) => response.json())
-        .then((response) => dispatch(fetchMovies(response.results)))
+        .then((response) => {
+          dispatch(fetchMovies(response.results));
+          setPage(2);
+        })
         .catch((err) => console.error(err));
     },
     [dispatch]
   );
+
+  const fetchMore = useCallback(() => {
+    console.log(page);
+    fetch(
+      "https://api.themoviedb.org/3/movie/" +
+        filter +
+        "?language=en-US&page=" +
+        page +
+        "&api_key=" +
+        process.env.REACT_APP_API_KEY,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        dispatch(addMovies(response.results));
+        setPage(parseInt(page) + 1);
+      })
+      .catch((err) => console.error(err));
+  }, [dispatch, filter, page]);
 
   return (
     <div className="w-full py-8">
@@ -83,6 +115,18 @@ const MovieList = () => {
         {movies.map((value, index) => (
           <MovieCard className="mx-auto" key={index} movie={value} />
         ))}
+      </div>
+      <div className="w-full flex justify-center">
+        <button
+          onClick={(e) => {
+            console.log(page);
+            setPage(parseInt(page) + 1);
+            console.log(page);
+            fetchMore();
+          }}
+        >
+          See More <FontAwesomeIcon icon={faChevronDown} />
+        </button>
       </div>
     </div>
   );

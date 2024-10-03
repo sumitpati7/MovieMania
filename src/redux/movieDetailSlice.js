@@ -21,4 +21,5 @@ const movieDetailSlice = createSlice({
 export const { setMovieDetail, setReviews } = movieDetailSlice.actions;
 export const getMovieDetail = (state) => state.movieDetail.moviedetail;
 export const getReviews = (state) => state.movieDetail.reviews;
+//here in the above lines state.movieDetail.reviews,
 export default movieDetailSlice.reducer;
