@@ -24,25 +24,25 @@ const MovieCard = ({ movie }) => {
 
   return (
     <>
-      <div className="movie w-[250px] md:w-[300px] mx-auto float-left pr-3 mt-4">
+      <div className="movie w-[150px] md:w-[300px] mx-auto float-left pr-3 mt-4">
         <div
           onMouseEnter={changeDisplayShow}
           onMouseLeave={changeDisplayHidden}
           onClick={navigateToDetails}
-          className="movie-image float-left w-[250px] md:w-[300px] h-[450px] relative"
+          className="movie-image float-left w-[150px] md:w-[300px] h-[225px] md:h-[450px] relative"
         >
           {" "}
           <span
             id={movie.id}
-            className="play absolute w-[250px] p-4 md:w-[300px] h-[450px] block z-[2] cursor-pointer hidden left-0 top-0 overflow-y-auto"
+            className="play absolute w-[150px] p-4 md:w-[300px] h-[225px] md:h-[450px] block z-[2] cursor-pointer hidden left-0 top-0 overflow-y-auto"
           >
-            <span className="text-sm text-white">
+            <span className=" text-[12px] md:text-sm text-white">
               Description: {movie.overview} <br />
               Release Date: {movie.release_date}
             </span>
           </span>{" "}
           <img
-            className="w-[250px] md:w-[300px] h-[450px]"
+            className="w-[150px] md:w-[300px] h-[225px] md:h-[450px]"
             src={"https://image.tmdb.org/t/p/w200" + movie.poster_path}
             alt=""
           />{" "}

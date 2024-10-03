@@ -21,7 +21,7 @@ const Navbar = () => {
     <header className="h-20 w-full">
       <nav className="h-20 w-[90%] mx-auto z-[10] flex items-center justify-between">
         <a
-          className="logo font-[Poppins] text-blue-700 font-extrabold tracking-wider text-4xl"
+          className="logo font-[Poppins] text-blue-700 text-3xl sm:text-2xl font-extrabold tracking-wider md:text-4xl"
           href="/"
         >
           Movie<span className="text-[#e36414]">Mania</span>
@@ -34,7 +34,7 @@ const Navbar = () => {
             {links.map((value, index) => (
               <li key={index} className="text-center">
                 <a
-                  className="text-xl font-semibold hover:text-gray-500 capitalize"
+                  className="text-sm lg:text-xl  font-semibold hover:text-gray-500 capitalize"
                   href="/"
                 >
                   {value}
