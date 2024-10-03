@@ -9,6 +9,7 @@ import {
   setReviews,
 } from "../redux/movieDetailSlice";
 import CommentForm from "./CommentForm";
+import useDocumentTitle from "./useDocumentTitle";
 const options = {
   method: "GET",
   headers: {
@@ -23,6 +24,7 @@ const MovieDetail = () => {
   const dispatch = useDispatch();
   const movie_detail = useSelector(getMovieDetail);
   const review_comments = useSelector(getReviews);
+  useDocumentTitle(movie_detail.title);
 
   useEffect(() => {
     async function fetchData() {
