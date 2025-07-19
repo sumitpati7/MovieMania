@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies, selectMovies } from "../redux/movieSlice";
+import { useDispatch } from "react-redux";
+import { fetchMovies } from "../redux/movieSlice";
 
 const options = {
   method: "GET",
@@ -14,7 +14,7 @@ const options = {
 const Searchsection = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const dispatch = useDispatch();
-  const movies = useSelector(selectMovies);
+  // const movies = useSelector(selectMovies);
 
   const [keyword, setKeyword] = useState("");
 
@@ -48,7 +48,7 @@ const Searchsection = () => {
   };
 
   return (
-    <div className="sticky top-0 z-30">
+    <div className="sticky top-2 z-30">
       <input
         type="text"
         name="q"

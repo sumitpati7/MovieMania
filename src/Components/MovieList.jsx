@@ -102,9 +102,9 @@ const MovieList = () => {
   return (
     <div className="w-full relative">
       {/* Fixed filter dropdown */}
-      <div className="sticky top-[48px] left-0 right-0 z-20">
+      <div className="sticky top-[56px] left-0 right-0 z-20">
         <div className="w-[90%] mx-auto">
-          <div className="text-xl font-semibold text-blue-700">
+          <div className="text-xl font-semibold text-blue-700 w-full bg-white bg-opacity-45">
             <select
               name="filter"
               id="filter"
@@ -128,7 +128,7 @@ const MovieList = () => {
 
       {/* Padding to offset fixed filter height */}
       <div className="pt-4 w-[90%] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
           {movies.map((movie, index) => (
             <MovieCard className="mx-auto" key={index} movie={movie} />
           ))}
