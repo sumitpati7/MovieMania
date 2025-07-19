@@ -15,7 +15,7 @@ const Navbar = () => {
       <nav className="h-20 w-[90%] mx-auto z-[10] flex items-center justify-between">
         <a
           className="logo font-[Poppins] text-blue-700 font-extrabold tracking-wider text-4xl"
-          href="/"
+          href="/MovieMania/"
         >
           Movie<span className="text-[#e36414]">Mania</span>
         </a>
@@ -28,7 +28,7 @@ const Navbar = () => {
               <li key={index} className="text-center">
                 <a
                   className="text-xl font-semibold hover:text-gray-500 capitalize"
-                  href="/"
+                  href="/MovieMania/"
                 >
                   {value}
                 </a>
