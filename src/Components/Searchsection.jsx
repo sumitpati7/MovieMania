@@ -48,7 +48,7 @@ const Searchsection = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="sticky top-0 z-30">
       <input
         type="text"
         name="q"

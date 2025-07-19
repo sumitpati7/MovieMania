@@ -1,19 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+// redux/movieSlice.js
 
-const initialState = {
-  movies: [],
-};
+import { createSlice } from "@reduxjs/toolkit";
 
 const movieSlice = createSlice({
   name: "movies",
-  initialState: initialState,
+  initialState: [],
   reducers: {
-    fetchMovies: (state, actions) => {
-      state.movies = actions.payload;
+    fetchMovies: (state, action) => {
+      // Replace movie list (e.g., on filter change)
+      return action.payload;
+    },
+    appendMovies: (state, action) => {
+      // Append to existing list
+      return [...state, ...action.payload];
     },
   },
 });
 
-export const { fetchMovies } = movieSlice.actions;
-export const selectMovies = (state) => state.movies.movies;
+export const { fetchMovies, appendMovies } = movieSlice.actions;
+
+export const selectMovies = (state) => state.movies;
+
 export default movieSlice.reducer;

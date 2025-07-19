@@ -5,14 +5,7 @@ import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
   const [icon, setIcon] = useState(faBars);
 
-  const links = [
-    "home",
-    "news",
-    "in theaters",
-    "coming soon",
-    "contact",
-    "advertisement",
-  ];
+  const links = ["home"];
 
   const toggleIcon = () => {
     icon === faBars ? setIcon(faClose) : setIcon(faBars);
