@@ -8,7 +8,7 @@ const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
 
   const navigateToDetails = () => {
-    navigate(`details/${movie.id}`);
+    navigate(`/details/${movie.id}`);
   };
 
   const changeDisplayShow = () => {

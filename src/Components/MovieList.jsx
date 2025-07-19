@@ -90,12 +90,14 @@ const MovieList = () => {
       },
     );
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
+    const loader = loaderRef.current;
+
+    if (loader) {
+      observer.observe(loader);
     }
 
     return () => {
-      if (loaderRef.current) observer.unobserve(loaderRef.current);
+      if (loader) observer.unobserve(loader);
     };
   }, [hasMore, loading]);
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import {
   setReviews,
 } from "../redux/movieDetailSlice";
 import CommentForm from "./CommentForm";
+import MovieSuggestionsSection from "./MovieSuggestionSection";
 const options = {
   method: "GET",
   headers: {
@@ -30,7 +31,7 @@ const MovieDetail = () => {
         const response = await fetch(
           `https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=` +
             process.env.REACT_APP_API_KEY,
-          options
+          options,
         );
         const movieData = await response.json();
         dispatch(setMovieDetail(movieData));
@@ -43,32 +44,32 @@ const MovieDetail = () => {
     fetch(
       `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1&api_key=` +
         process.env.REACT_APP_API_KEY,
-      options
+      options,
     )
       .then((response) => response.json())
       .then((response) => dispatch(setReviews(response.results)))
       .catch((err) => console.error(err));
   }, [movieId, dispatch]);
 
-  const postReview = useCallback(async () => {
-    let value = document.getElementById("rating-select").value;
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}`,
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json;charset=utf-8",
-            Authorization: `Bearer ${process.env.REACT_APP_API_ACCESS_TOKEN}`,
-          },
-          body: JSON.stringify({ value: value }),
-        }
-      );
-      const message = await response.json();
-      console.log(message);
-    } catch (e) {}
-  }, [movieId]);
+  // const postReview = useCallback(async () => {
+  //   let value = document.getElementById("rating-select").value;
+  //   try {
+  //     const response = await fetch(
+  //       `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           accept: "application/json",
+  //           "Content-Type": "application/json;charset=utf-8",
+  //           Authorization: `Bearer ${process.env.REACT_APP_API_ACCESS_TOKEN}`,
+  //         },
+  //         body: JSON.stringify({ value: value }),
+  //       },
+  //     );
+  //     const message = await response.json();
+  //     console.log(message);
+  //   } catch (e) {}
+  // }, [movieId]);
   return (
     <div className="w-full">
       <div className="w-[90%] mx-auto">
@@ -217,33 +218,9 @@ const MovieDetail = () => {
             <CommentForm />
           </div>
         </div>
-        <div className="rating w-[80%] py-8 mx-auto">
-          <div className="rev text-4xl font-bold text-[#e36414] w-fit border-b-4 mb-4 md:mb-0 border-blue-700 md:text-6xl">
-            Rating
-          </div>
-          <div className="rate-box w-full">
-            <div className="text-xl">Would you like to rate this movie?</div>
-            <div className="rating-select w-full flex justify-center">
-              <select
-                className=" border-[#88C0D0] border-solid border"
-                name="rating"
-                id="rating-select"
-              >
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value, index) => (
-                  <option value={value} key={index}>
-                    {value}
-                  </option>
-                ))}
-              </select>
-              <button
-                onClick={() => postReview()}
-                className="ml-4 border-[#88C0D0] border-solid border px-4 rounded-sm"
-              >
-                Rate!
-              </button>
-            </div>
-          </div>
-        </div>
+        <MovieSuggestionsSection
+          movieId={movie_detail.id}
+        ></MovieSuggestionsSection>
       </div>
     </div>
   );
